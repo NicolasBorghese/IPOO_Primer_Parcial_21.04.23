@@ -1,7 +1,5 @@
 <?php
 
-include_once("Cliente.php");
-
 class Venta{
 
     //ATRIBUTOS
@@ -70,11 +68,12 @@ class Venta{
      */
     public function __toString(){
         //string $cadena
-        $cadena = "Número: ".$this->getNumero()."\n";
-        $cadena = $cadena. "Fecha: ".$this->getFecha()."\n";
-        $cadena = $cadena. "Cliente: ---\n".$this->getCliente()."---\n";
-        $cadena = $cadena. "Colección de motos: ---\n".$this->colMotosAString()."---\n";
-        $cadena = $cadena. "Precio final: $".$this->getPrecioFinal()."\n";
+        $cadena = "[Número venta: ".$this->getNumero()."]";
+        $cadena = $cadena. "[Fecha: ".$this->getFecha()."]";
+        $cadena = $cadena. "[Precio final: $".$this->getPrecioFinal()."]\n";
+        $cadena = $cadena. "Cliente: ".$this->getCliente()."\n";
+        $cadena = $cadena. " -- Colección de motos en la venta --\n".$this->mostrarColMotos();
+        
 
         return $cadena;
     }
@@ -84,17 +83,20 @@ class Venta{
      * 
      * @return string
      */
-    public function colMotosAString(){
+    public function mostrarColMotos(){
         //string $cadena
-        //array $motos
+        //array $colMotos
         
         $cadena = "";
-        $motos = $this->getColMotos();
+        $colMotos = $this->getColMotos();
         
-        for($i = 0; $i < count($motos); $i++){
-            $cadena = $cadena ."Moto n° [". $i . "]:\n".$motos[$i]."\n---\n";
+        if (count($colMotos) == 0){
+            $cadena = "[Esta venta no tiene motos incorporadas]\n";
+        } else {
+            for($i = 0; $i < count($colMotos); $i++){
+                $cadena = $cadena ."Moto n° ". $i+1 .": ".$colMotos[$i]."\n";
+            }
         }
-
         return $cadena;
     }
 

@@ -70,11 +70,11 @@ class Cliente{
      */
     public function __toString(){
         //string $cadena
-        $cadena = "Nombre: ".$this->getNombre()."\n";
-        $cadena = $cadena. "Apellido: ".$this->getApellido()."\n";
-        $cadena = $cadena. "Estado: ".$this->getEstado()."\n";
-        $cadena = $cadena. "Tipo documento: ".$this->getTipoDocumento()."\n";
-        $cadena = $cadena. "Número de documento: ".$this->getNumeroDocumento()."\n";
+        $cadena = "[Nombre: ".$this->getNombre()."]";
+        $cadena = $cadena. "[Apellido: ".$this->getApellido()."]";
+        $cadena = $cadena. "[Estado: ".$this->getEstado()."]";
+        $cadena = $cadena. "[Tipo documento: ".$this->getTipoDocumento()."]";
+        $cadena = $cadena. "[N° de documento: ".$this->getNumeroDocumento()."]";
 
         return $cadena;
     }

@@ -1,9 +1,5 @@
 <?php
 
-include_once("Cliente.php");
-include_once("Moto.php");
-include_once("Venta.php");
-
 class Empresa{
     
     //ATRIBUTOS
@@ -14,7 +10,7 @@ class Empresa{
     private $colVentas;
 
     //CONSTRUCTOR
-    public function __construc($denominacion, $direccion, $colClientes, $colMotos, $colVentas){
+    public function __construct($denominacion, $direccion, $colClientes, $colMotos, $colVentas){
         $this->denominacion = $denominacion;
         $this->direccion = $direccion;
         $this->colClientes = $colClientes;
@@ -72,11 +68,13 @@ class Empresa{
      */
     public function __toString(){
         //string $cadena
-        $cadena = "Denominación: ".$this->getDenominacion()."\n";
-        $cadena = $cadena ."Dirección: ".$this->getDireccion()."\n";
-        $cadena = $cadena ."Colección de clientes:\n".$this->colClientesAString()."\n";
-        $cadena = $cadena ."Colección de motos:\n".$this->colMotosAString()."\n";
-        $cadena = $cadena ."Colección de ventas:\n".$this->colVentasAString()."\n";
+        $cadena = "================================================================================================\n";
+        $cadena = $cadena. "Empresa: [Denominación: ".$this->getDenominacion()."]";
+        $cadena = $cadena ."[Dirección: ".$this->getDireccion()."]\n\n";
+        $cadena = $cadena ."--- Colección de clientes en empresa ---\n".$this->mostrarColClientes()."\n";
+        $cadena = $cadena ."--- Colección de motos en empresa ---\n".$this->mostrarColMotos()."\n";
+        $cadena = $cadena ."--- Colección de ventas en empresa ---\n".$this->mostrarColVentas();
+        $cadena = $cadena ."================================================================================================\n";
 
         return $cadena;
     }
@@ -86,17 +84,20 @@ class Empresa{
      * 
      * @return string
      */
-    public function colClientesAString(){
+    public function mostrarColClientes(){
         //string $cadena
-        //array $clientes
+        //array $colClientes
         
         $cadena = "";
-        $clientes = $this->getColClientes();
+        $colClientes = $this->getColClientes();
         
-        for($i = 0; $i < count($clientes); $i++){
-            $cadena = $cadena ."Cliente n° [". $i . "]:\n".$clientes[$i]."\n---\n";
+        if (count($colClientes) == 0){
+            $cadena = "[Esta empresa no cuenta con clientes cargados]\n";
+        } else {
+            for($i = 0; $i < count($colClientes); $i++){
+                $cadena = $cadena ."Cliente n° ". $i+1 .": ".$colClientes[$i]."\n";
+            }
         }
-
         return $cadena;
     }
     
@@ -105,17 +106,20 @@ class Empresa{
      * 
      * @return string
      */
-    public function colMotosAString(){
+    public function mostrarColMotos(){
         //string $cadena
-        //array $motos
+        //array $colMotos
         
         $cadena = "";
-        $motos = $this->getColMotos();
+        $colMotos = $this->getColMotos();
         
-        for($i = 0; $i < count($motos); $i++){
-            $cadena = $cadena ."Moto n° [". $i . "]:\n".$motos[$i]."\n---\n";
+        if(count($colMotos) == 0){
+            $cadena = "[Esta empresa no cuenta con motos cargadas]\n";
+        } else {
+            for($i = 0; $i < count($colMotos); $i++){
+                $cadena = $cadena ."Moto n° ". $i+1 .": ".$colMotos[$i]."\n";
+            }
         }
-
         return $cadena;
     }
 
@@ -124,17 +128,20 @@ class Empresa{
      * 
      * @return string
      */
-    public function colVentasAString(){
+    public function mostrarColVentas(){
         //string $cadena
-        //array $ventas
+        //array $colVentas
         
         $cadena = "";
-        $ventas = $this->getColVentas();
+        $colVentas = $this->getColVentas();
         
-        for($i = 0; $i < count($ventas); $i++){
-            $cadena = $cadena ."Venta n° [". $i . "]:\n".$ventas[$i]."\n---\n";
+        if(count($colVentas) == 0){
+            $cadena = "[Esta empresa no cuenta con ventas cargadas]\n";
+        } else {
+            for($i = 0; $i < count($colVentas); $i++){
+                $cadena = $cadena ."Venta n° ". $i+1 . ": ".$colVentas[$i]."\n";
+            }
         }
-
         return $cadena;
     }
 
@@ -162,7 +169,6 @@ class Empresa{
             }
             $posMoto++;
         }
-
         return $motoObtenida;
     }
 
@@ -184,30 +190,23 @@ class Empresa{
 
         if($objCliente->getEstado() == "alta"){
 
-            $motosAVender = [];
+            $codigoVenta = count($this->getColVentas())+1;
+            $nuevaVenta = new Venta($codigoVenta, "21/04/23", $objCliente, [] , 0);
 
-            $colMotos = $this->getColMotos();
+            for($i=0; $i < count($colCodigosMoto); $i++){
 
-            for($posCodigo = 0; $posCodigo < count($colCodigosMoto); $posCodigo++){
+                $codigoActual = $colCodigosMoto[$i];
+                $motoEncontrada = $this->retornarMoto($codigoActual);
 
-                $codigoActual = $colCodigosMoto[$posCodigo];
-                $codigoEncontrado = false;
-                $posMoto = 0;
-
-                while($codigoEncontrado == false && $posMoto < count($colMotos)){
-                    $motoActual = $colMotos[$posMoto];
-
-                    if($motoActual->getActiva() && $motoActual->getCodigo() == $codigoActual){
-                        array_push($motosAVender, $motoActual);
-                        $importeFinal = $importeFinal + $motoActual->darPrecioVenta();
-                    }
+                if($motoEncontrada != null && $motoEncontrada->getActiva()){
+                    $nuevaVenta->incorporarMoto($motoEncontrada);
                 }
             }
 
-            $nuevaVenta = new Venta("1234", "21/04/23", $objCliente, $motosAVender, $importeFinal);
+            $importeFinal = $nuevaVenta->getPrecioFinal();
             $copiaColVentas = $this->getColVentas();
             array_push($copiaColVentas, $nuevaVenta);
-            $this->setColVentas($nuevaVenta);
+            $this->setColVentas($copiaColVentas);
 
         } else {
             $importeFinal = -1;
@@ -228,13 +227,16 @@ class Empresa{
     public function retornarVentasXCliente($tipo, $numDoc){
 
         $colVentasCliente = [];
-        for($i=0; $i < count($this->getColVentas()); $i++){
-            if($this->getColVentas()[$i]->getCliente()->getTipoDocumento() == $tipo &&
-            $this->getColVentas()[$i]->getCliente()->getNumeroDocumento() == $numDoc){
-                array_push($colVentasCliente, $this->getColVentas()[$i]);
+        $colVentas = $this->getColVentas();
+
+        for($i=0; $i < count($colVentas); $i++){
+            $tipoDocLeido = $colVentas[$i]->getCliente()->getTipoDocumento();
+            $numDocLeido = $colVentas[$i]->getCliente()->getNumeroDocumento();
+
+            if($tipoDocLeido == $tipo && $numDocLeido == $numDoc){
+                array_push($colVentasCliente, $colVentas[$i]);
             }
         }
-
         return $colVentasCliente;
     }
 

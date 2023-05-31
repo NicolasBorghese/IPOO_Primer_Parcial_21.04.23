@@ -78,12 +78,14 @@ class Moto{
      */
     public function __toString(){
         //string $cadena
-        $cadena = "Codigo: ".$this->getCodigo()."\n";
-        $cadena = $cadena. "Costo: $".$this->getCosto()."\n";
-        $cadena = $cadena. "Año de fabricacion: ".$this->getAnioFabricacion()."\n";
-        $cadena = $cadena. "Descripcion: ".$this->getDescripcion()."\n";
-        $cadena = $cadena. "Porcentaje de incremento anual: ".$this->getPorcIncAnual()."\n";
-        $cadena = $cadena. "Activa: ".$this->getActiva()."\n";
+        $estadoActiva = $this->getActiva()? "Si": "No";
+
+        $cadena = "[Código: ".$this->getCodigo()."]";
+        $cadena = $cadena. "[Costo: $".$this->getCosto()."]";
+        $cadena = $cadena. "[Año de fab.: ".$this->getAnioFabricacion()."]";
+        $cadena = $cadena. "[Descripcion: ".$this->getDescripcion()."]\n";
+        $cadena = $cadena. "[Porcentaje de incremento anual: ".$this->getPorcIncAnual()."%]";
+        $cadena = $cadena. "[Activa: ".$estadoActiva."]";
 
         return $cadena;
     }

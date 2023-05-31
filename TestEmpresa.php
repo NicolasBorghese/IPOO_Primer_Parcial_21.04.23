@@ -1,9 +1,9 @@
 <?php
 
-include_once("Cliente.php");
-include_once("Moto.php");
-include_once("Venta.php");
-include_once("Empresa.php");
+include_once "Cliente.php";
+include_once "Moto.php";
+include_once "Venta.php";
+include_once "Empresa.php";
 
 
 $objCliente1 = new Cliente("pedro", "jose", "alta", "dni", "1122");
@@ -18,8 +18,8 @@ $colClientes = [$objCliente1, $objCliente2];
 
 $objEmpresa1 = new Empresa("Alta gama", "Av Argenetina 123", $colClientes, $colMotos, []);
 
-echo $objEmpresa1;
 echo"\n";
+echo $objEmpresa1;
 echo"\n";
 echo $objEmpresa1->registrarVenta([11,12,13], $objCliente2);
 echo"\n";
@@ -27,9 +27,9 @@ echo $objEmpresa1->registrarVenta([0], $objCliente2);
 echo"\n";
 echo $objEmpresa1->registrarVenta([2], $objCliente2);
 echo"\n";
-echo $objEmpresa1->retornarVentasXCliente("dni", "1122");
+print_r ($objEmpresa1->retornarVentasXCliente("dni", "1122"));
 echo"\n";
-echo $objEmpresa1->retornarVentasXCliente("dni", "1142");
+print_r ($objEmpresa1->retornarVentasXCliente("dni", "1142"));
 echo"\n";
 echo $objEmpresa1;
 echo"\n";
