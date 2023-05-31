@@ -94,7 +94,7 @@ class Venta{
             $cadena = "[Esta venta no tiene motos incorporadas]\n";
         } else {
             for($i = 0; $i < count($colMotos); $i++){
-                $cadena = $cadena ."Moto n° ". $i+1 .": ".$colMotos[$i]."\n";
+                $cadena = $cadena ."Moto N° ". $i+1 .": ".$colMotos[$i]."\n";
             }
         }
         return $cadena;

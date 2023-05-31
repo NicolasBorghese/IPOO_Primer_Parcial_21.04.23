@@ -5,7 +5,31 @@ include_once "Moto.php";
 include_once "Venta.php";
 include_once "Empresa.php";
 
+// ----------------------- FUNCIONES ----------------------------//
 
+/**
+ * Recibe un arreglo y devuelve un string que muestra los elementos contenidos en ese arreglo
+ * Observación: NO SIRVE PARA ARREGLOS DE ARREGLOS
+ * 
+ * @param array $arreglo
+ * @return string
+ */
+function muestraArreglo($arreglo){
+    $cadena = "";
+    
+    if(count($arreglo) == 0){
+        $cadena = "[Esta colección no tiene elementos]\n";
+    } else {
+        for($i=0; $i < count($arreglo); $i++){
+            $cadena = $cadena . "Elemento N°". $i+1 . ": ". $arreglo[$i] ."\n";
+        }
+    }
+    return $cadena;
+}
+
+
+
+// ------------------ PROGRAMA PRINCIPAL -----------------------//
 $objCliente1 = new Cliente("pedro", "jose", "alta", "dni", "1122");
 $objCliente2 = new Cliente("Marcos", "jose", "alta", "dni", "1142");
 
@@ -19,18 +43,25 @@ $colClientes = [$objCliente1, $objCliente2];
 $objEmpresa1 = new Empresa("Alta gama", "Av Argenetina 123", $colClientes, $colMotos, []);
 
 echo"\n";
+echo"Estado Inicial de la empresa\n";
 echo $objEmpresa1;
 echo"\n";
-echo $objEmpresa1->registrarVenta([11,12,13], $objCliente2);
+echo "Valor final de precio al registarVenta([11,12,13], objCliente2)\n";
+echo $objEmpresa1->registrarVenta([11,12,13], $objCliente2)."\n";
 echo"\n";
-echo $objEmpresa1->registrarVenta([0], $objCliente2);
+echo "Valor final de precio al registarVenta([0], objCliente2)\n";
+echo $objEmpresa1->registrarVenta([0], $objCliente2)."\n";
 echo"\n";
-echo $objEmpresa1->registrarVenta([2], $objCliente2);
+echo "Valor final de precio al registarVenta([2], objCliente2)\n";
+echo $objEmpresa1->registrarVenta([2], $objCliente2)."\n";
 echo"\n";
-print_r ($objEmpresa1->retornarVentasXCliente("dni", "1122"));
+echo"Colección de ventas al hacer retornarVentasXCliente(dni, 1122)\n";
+echo muestraArreglo($objEmpresa1->retornarVentasXCliente("dni", "1122"))."\n";
 echo"\n";
-print_r ($objEmpresa1->retornarVentasXCliente("dni", "1142"));
+echo"Colección de ventas al hacer retornarVentasXCliente(dni, 1142)\n";
+echo muestraArreglo($objEmpresa1->retornarVentasXCliente("dni", "1142"))."\n";
 echo"\n";
+echo"Estado Final de la empresa\n";
 echo $objEmpresa1;
 echo"\n";
 

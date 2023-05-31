@@ -95,7 +95,7 @@ class Empresa{
             $cadena = "[Esta empresa no cuenta con clientes cargados]\n";
         } else {
             for($i = 0; $i < count($colClientes); $i++){
-                $cadena = $cadena ."Cliente n° ". $i+1 .": ".$colClientes[$i]."\n";
+                $cadena = $cadena ."Cliente N° ". $i+1 .": ".$colClientes[$i]."\n";
             }
         }
         return $cadena;
@@ -117,7 +117,7 @@ class Empresa{
             $cadena = "[Esta empresa no cuenta con motos cargadas]\n";
         } else {
             for($i = 0; $i < count($colMotos); $i++){
-                $cadena = $cadena ."Moto n° ". $i+1 .": ".$colMotos[$i]."\n";
+                $cadena = $cadena ."Moto N° ". $i+1 .": ".$colMotos[$i]."\n";
             }
         }
         return $cadena;
@@ -139,7 +139,7 @@ class Empresa{
             $cadena = "[Esta empresa no cuenta con ventas cargadas]\n";
         } else {
             for($i = 0; $i < count($colVentas); $i++){
-                $cadena = $cadena ."Venta n° ". $i+1 . ": ".$colVentas[$i]."\n";
+                $cadena = $cadena ."Venta N° ". $i+1 . ": ".$colVentas[$i]."\n";
             }
         }
         return $cadena;
