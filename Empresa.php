@@ -114,7 +114,7 @@ class Empresa{
         $colMotos = $this->getColMotos();
         
         if(count($colMotos) == 0){
-            $cadena = "[Esta empresa no cuenta con motos cargadas]\n";
+            $cadena = "[Esta empresa no cuenta con motos en el inventario]\n";
         } else {
             for($i = 0; $i < count($colMotos); $i++){
                 $cadena = $cadena ."Moto N° ". $i+1 .": ".$colMotos[$i]."\n";
@@ -136,7 +136,7 @@ class Empresa{
         $colVentas = $this->getColVentas();
         
         if(count($colVentas) == 0){
-            $cadena = "[Esta empresa no cuenta con ventas cargadas]\n";
+            $cadena = "[Esta empresa no cuenta con ventas realizadas]\n";
         } else {
             for($i = 0; $i < count($colVentas); $i++){
                 $cadena = $cadena ."Venta N° ". $i+1 . ": ".$colVentas[$i]."\n";
