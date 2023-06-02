@@ -10,6 +10,8 @@ class Moto{
     private $porcIncAnual;
     private $activa;
 
+    //$activa es un booleano que vale true si la moto está activa y false en caso contrario
+
     //CONSTRUCTOR
     public function __construct($codigo, $costo, $anioFabricacion, $descripcion, $porcIncAnual, $activa){
         $this->codigo = $codigo;

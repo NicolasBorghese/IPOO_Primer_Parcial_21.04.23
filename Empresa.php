@@ -190,8 +190,9 @@ class Empresa{
 
         if($objCliente->getEstado() == "alta"){
 
-            $codigoVenta = count($this->getColVentas())+1;
-            $nuevaVenta = new Venta($codigoVenta, "21/04/23", $objCliente, [] , 0);
+            $codigoVenta = 1001 + count($this->getColVentas());
+            $fecha = date('Y-m-d');
+            $nuevaVenta = new Venta($codigoVenta, $fecha, $objCliente, [] , 0);
 
             for($i=0; $i < count($colCodigosMoto); $i++){
 
